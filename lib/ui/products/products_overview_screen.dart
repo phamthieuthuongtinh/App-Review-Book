@@ -29,7 +29,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyShop'),
+        title: const Text('Giới Thiệu Sách'),
         actions: <Widget>[
           ProductFilterMenu(
             onFilterSelected: (filter) {
@@ -81,11 +81,11 @@ class ProductFilterMenu extends StatelessWidget {
       itemBuilder: (ctx) => [
         const PopupMenuItem(
           value: FilterOptions.favorites,
-          child: Text('Only Favorites'),
+          child: Text('Yêu thích'),
         ),
         const PopupMenuItem(
           value: FilterOptions.all,
-          child: Text('Show all'),
+          child: Text('Tất cả'),
         ),
       ],
     );

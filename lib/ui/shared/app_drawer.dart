@@ -13,13 +13,13 @@ class AppDrawer extends StatelessWidget{
       child: Column(
         children: <Widget>[
           AppBar(
-            title: const Text('Hello Friend!'),
+            title: const Text('Xin chào'),
             automaticallyImplyLeading: false,
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.shop),
-            title: const Text('Shop'),
+            leading: const Icon(Icons.book),
+            title: const Text('Tất cả sách'),
             onTap: (){
               Navigator.of(context).pushReplacementNamed('/');
             },
@@ -35,7 +35,7 @@ class AppDrawer extends StatelessWidget{
           const Divider(),
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const Text('Manage Products'),
+            title: const Text('Quản lý'),
             onTap: (){
               Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
             },

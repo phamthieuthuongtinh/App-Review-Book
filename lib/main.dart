@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = ColorScheme.fromSeed(
-      seedColor: Colors.purple,
+      seedColor: Color.fromARGB(255, 166, 23, 23),
       secondary: Colors.deepOrange,
       background: Colors.white,
       surfaceTint: Colors.grey[200],
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AuthManager>(
         builder: (context, authManager, child) {
           return MaterialApp(
-            title: 'MyShop',
+            title: 'Giới Thiệu Sách',
             debugShowCheckedModeBanner: false,
             theme: themeData,
             home: authManager.isAuth ?  const ProductsOverviewScreen() : FutureBuilder(
