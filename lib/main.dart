@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/products/products_category_screen.dart';
 import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,7 +15,7 @@ import 'ui/products/edit_product_screen.dart';
 import 'package:provider/provider.dart';
 import 'ui/screens.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   await dotenv.load();
   runApp(const MyApp());
 }
@@ -62,97 +63,85 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context)=> AuthManager(),
+          create: (context) => AuthManager(),
         ),
-         ChangeNotifierProxyProvider<AuthManager, ProductsManager>(
+        ChangeNotifierProxyProvider<AuthManager, ProductsManager>(
           create: (ctx) => ProductsManager(),
           update: (ctx, authManager, productsManager) {
-          // Khi authManager có báo hiệu thay đổi thì đọc lại authToken
-          // cho productManager
-          productsManager!.authToken = authManager.authToken;
-          return productsManager;
+            // Khi authManager có báo hiệu thay đổi thì đọc lại authToken
+            // cho productManager
+            productsManager!.authToken = authManager.authToken;
+            return productsManager;
           },
         ),
-      //  ChangeNotifierProxyProvider<AuthManager, CartManager>(
-      //     create: (ctx) => CartManager(),
-      //     update: (ctx, authManager, CartManager) {
-      //     // Khi authManager có báo hiệu thay đổi thì đọc lại authToken
-      //     // cho productManager
-      //     CartManager!.authToken = authManager.authToken;
-      //     return CartManager;
-      //     },
-      //   ),
-        // ChangeNotifierProxyProvider<AuthManager, OrdersManager>(
-        //   create: (ctx) => OrdersManager(),
-        //   update: (ctx, authManager, OrdersManager) {
-        //   // Khi authManager có báo hiệu thay đổi thì đọc lại authToken
-        //   // cho productManager
-        //   OrdersManager!.authToken = authManager.authToken;
-        //   return OrdersManager;
-        //   },
-        // ),
       ],
-      child: Consumer<AuthManager>(
-        builder: (context, authManager, child) {
-          return MaterialApp(
-            title: 'Giới Thiệu Sách',
-            debugShowCheckedModeBanner: false,
-            theme: themeData,
-            home: authManager.isAuth ?  const ProductsOverviewScreen() : FutureBuilder(
-              future: authManager.tryAutoLogin(),
-              builder: (ctx,snapshot){
-                return snapshot.connectionState==ConnectionState.waiting 
-                    ? const SafeArea(child:SplashScreen())  
-                    : const SafeArea(child:AuthScreen());
-              },
-            ),
-            routes: {
-              // CartScreen.routeName: (ctx) => const SafeArea(
-              //       child: CartScreen(),
-              //     ),
-              // OrdersScreen.routeName: (ctx) => const SafeArea(
-              //       child: OrdersScreen(),
-              //     ),
-              ProductSearchScreen.routeName: (ctx) => ProductSearchScreen(),
-              UserProductsScreen.routeName: (ctx) => const SafeArea(
-                    child: UserProductsScreen(),
-                  ),
-              ProductsOverviewScreen.routeName: (ctx) => const SafeArea(
-                    child: ProductsOverviewScreen(),
-                  ),
-            },
-            onGenerateRoute: (settings) {
-              if (settings.name == ProductDetailScreen.routeName) {
-                final productId = settings.arguments as String;
-                return MaterialPageRoute(
-                  builder: (ctx) {
-                    return SafeArea(
-                      child: ProductDetailScreen(
-                        ctx.read<ProductsManager>().findById(productId)!,
-                      ),
-                    );
+      child: Consumer<AuthManager>(builder: (context, authManager, child) {
+        return MaterialApp(
+          title: 'Giới Thiệu Sách',
+          debugShowCheckedModeBanner: false,
+          theme: themeData,
+          home: authManager.isAuth
+              ? const ProductsOverviewScreen()
+              : FutureBuilder(
+                  future: authManager.tryAutoLogin(),
+                  builder: (ctx, snapshot) {
+                    return snapshot.connectionState == ConnectionState.waiting
+                        ? const SafeArea(child: SplashScreen())
+                        : const SafeArea(child: AuthScreen());
                   },
-                );
-              }
-              if (settings.name == EditProductScreen.routeName) {
-                final productId = settings.arguments as String?;
-                return MaterialPageRoute(
-                  builder: (ctx) {
-                    return SafeArea(
-                      child: EditProductScreen(
-                        productId != null
-                            ? ctx.read<ProductsManager>().findById(productId)
-                            : null,
-                      ),
-                    );
-                  },
-                );
-              }
-              return null;
+                ),
+          routes: {
+            // CartScreen.routeName: (ctx) => const SafeArea(
+            //       child: CartScreen(),
+            //     ),
+            // OrdersScreen.routeName: (ctx) => const SafeArea(
+            //       child: OrdersScreen(),
+            //     ),
+
+            ProductsCategoryScreen.routeName: (context) {
+              final category = ModalRoute.of(context)!.settings.arguments as String;
+              return ProductsCategoryScreen(category: category);
             },
-          );
-        }
-      ),
+            ProductSearchScreen.routeName: (ctx) => ProductSearchScreen(),
+            UserProductsScreen.routeName: (ctx) => const SafeArea(
+                  child: UserProductsScreen(),
+                ),
+            ProductsOverviewScreen.routeName: (ctx) => const SafeArea(
+                  child: ProductsOverviewScreen(),
+                ),
+          },
+          onGenerateRoute: (settings) {
+            if (settings.name == ProductDetailScreen.routeName) {
+              final productId = settings.arguments as String;
+              return MaterialPageRoute(
+                builder: (ctx) {
+                  return SafeArea(
+                    child: ProductDetailScreen(
+                      ctx.read<ProductsManager>().findById(productId)!,
+                    ),
+                  );
+                },
+              );
+            }
+            if (settings.name == EditProductScreen.routeName) {
+              final productId = settings.arguments as String?;
+              return MaterialPageRoute(
+                builder: (ctx) {
+                  return SafeArea(
+                    child: EditProductScreen(
+                      productId != null
+                          ? ctx.read<ProductsManager>().findById(productId)
+                          : null,
+                    ),
+                  );
+                },
+              );
+            }
+
+            return null;
+          },
+        );
+      }),
     );
   }
 }

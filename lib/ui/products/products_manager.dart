@@ -12,7 +12,7 @@ import '../../services/products_service.dart';
 class ProductsManager with ChangeNotifier{
   
   List<Product> _items = [];
-
+  
 
   final ProductsService _productsService;
   ProductsManager([AuthToken? authToken])
@@ -81,4 +81,15 @@ class ProductsManager with ChangeNotifier{
       product.isFavorite=savedStatus;
     }
   }
+  Future<List<String>> getCategories() async {
+  List<Product> products = await _productsService.fetchProducts(); 
+  List<String> categories = products.map((product) => product.cate).toSet().toList();
+  return categories;
+}
+Future<List<Product>> fetchProductsByCategory(String category) async {
+  final List<Product> allProducts = await _productsService.fetchProducts();
+  final List<Product> categoryProducts = allProducts.where((product) => product.cate == category).toList();
+  return categoryProducts;
+}
+
 }
