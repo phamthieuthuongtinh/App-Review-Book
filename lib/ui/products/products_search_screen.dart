@@ -1,9 +1,9 @@
-import 'package:ct484_project/ui/products/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'products_manager.dart';
 import 'product_grid_tile.dart';
 import '../../models/product.dart';
+import 'product_detail_screen.dart';
 
 class ProductSearchScreen extends StatefulWidget {
   static const routeName = '/product-search';
@@ -69,36 +69,37 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
         ],
       ),
       body: _isDataLoaded
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Kết quả tìm kiếm',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+          ? SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  if (_searchResults.isNotEmpty)
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Kết quả tìm kiếm',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3 / 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
                     itemCount: _searchResults.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(_searchResults[index].title),
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                          ProductDetailScreen.routeName,
-                          arguments: _searchResults[index].id,
-                      );
-                        },
-                      );
+                    itemBuilder: (ctx, index) {
+                      return ProductGridTile(_searchResults[index]);
                     },
                   ),
-                ),
-              ],
+                ],
+              ),
             )
           : Center(
               child: CircularProgressIndicator(), // Hiển thị indicator khi đang tải
