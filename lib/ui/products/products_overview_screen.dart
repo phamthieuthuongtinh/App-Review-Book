@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ct484_project/ui/products/products_manager.dart';
 import '../shared/app_drawer.dart';
@@ -18,19 +19,32 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   final _showOnlyFavorites = ValueNotifier<bool>(false);
+  String _searchKeyword = '';
   late Future<void> _fetchProducts;
   @override
   void initState(){
     super.initState();
     _fetchProducts= context.read<ProductsManager>().fetchProducts();
   }
+void _navigateToProductSearchScreen(BuildContext context) {
+    Navigator.pushNamed(context, ProductSearchScreen.routeName);
+  }
 
+  Widget _buildSearchButton(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.search),
+      onPressed: () {
+        _navigateToProductSearchScreen(context);
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Giới Thiệu Sách'),
+        title: const Text('Trang chủ'),
         actions: <Widget>[
+          _buildSearchButton(context),
           ProductFilterMenu(
             onFilterSelected: (filter) {
               if(filter==FilterOptions.favorites){
@@ -40,11 +54,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               }
             },
           ),
-          // ShoppingCartButton(
-          //   onPressed: () {
-          //     Navigator.of(context).pushNamed(CartScreen.routeName);
-          //   },
-          // ),
+           
         ],
       ),
       drawer: const AppDrawer(),
@@ -92,24 +102,3 @@ class ProductFilterMenu extends StatelessWidget {
   }
 }
 
-// class ShoppingCartButton extends StatelessWidget {
-//   const ShoppingCartButton({super.key, this.onPressed});
-//   final void Function()? onPressed;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<CartManager>(
-//       builder: (ctx, cartManager, child) {
-//         return TopRightBadge(
-//           data: cartManager.productCount,
-//           child: IconButton(
-//             icon: const Icon(
-//               Icons.shopping_cart,
-//             ),
-//             onPressed: onPressed,
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }

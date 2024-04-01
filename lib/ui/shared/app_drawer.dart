@@ -24,14 +24,14 @@ class AppDrawer extends StatelessWidget{
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),
-          // const Divider(),
-          // ListTile(
-          //   leading: const Icon(Icons.payment),
-          //   title: const Text('Orders'),
-          //   onTap: (){
-          //     Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
-          //   },
-          // ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const Text('Thể loại'),
+            onTap: (){
+              // Navigator.of(context).pushReplacementNamed(UserProductsScreen.routeName);
+            },
+          ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.edit),

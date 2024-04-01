@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:ct484_project/ui/cart/cart_screen.dart';
 import 'package:ct484_project/ui/products/top_right_badge.dart';
@@ -22,11 +23,12 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(product.title),
         actions: <Widget>[
-          // ShoppingCartButton(
-          //   onPressed: () {
-          //     Navigator.of(context).pushNamed(CartScreen.routeName);
-          //   },
-          // ),
+          IconButton(
+            icon: Icon(Icons.search), // Thêm icon tìm kiếm
+            onPressed: () {
+              Navigator.of(context).pushNamed(ProductSearchScreen.routeName);
+            },
+          ),
           HomeButton(
             onPressed: () {
               Navigator.of(context).pushNamed(ProductsOverviewScreen.routeName);

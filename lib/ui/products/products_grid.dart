@@ -3,7 +3,7 @@ import 'product_grid_tile.dart';
 import 'products_manager.dart';
 import '../../models/product.dart';
 import 'package:provider/provider.dart';
-
+import 'product_detail_screen.dart';
 class ProductsGrid extends StatelessWidget {
   final bool showFavorites;
   const ProductsGrid(this.showFavorites, {Key? key}) : super(key: key);
@@ -36,16 +36,26 @@ class ProductsGrid extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: products.length,
                 itemBuilder: (ctx, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color.fromARGB(255, 7, 0, 0)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    margin: EdgeInsets.symmetric(horizontal: 5),
-                    width: 167,
-                    child: Image.network(
-                      products[index].imageUrl,
-                      fit: BoxFit.cover,
+                  final reversedIndex = products.length - 1 - index;
+                  return GestureDetector(
+                    onTap: () {
+                      // Chuyển người dùng tới trang chi tiết của sản phẩm khi click vào
+                      Navigator.of(context).pushNamed(
+                        ProductDetailScreen.routeName,
+                        arguments: products[reversedIndex].id,
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color.fromARGB(255, 7, 0, 0)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      width: 167,
+                      child: Image.network(
+                        products[reversedIndex].imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },

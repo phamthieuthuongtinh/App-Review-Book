@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       seedColor: Color.fromARGB(255, 166, 23, 23),
       secondary: Colors.deepOrange,
       background: Colors.white,
-      surfaceTint: Colors.grey[200],
+      surfaceTint: Colors.white,
     );
     final themeData = ThemeData(
       //Hieu ung chuyen trang
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
-        elevation: 4,
+        elevation: 5,
         shadowColor: colorScheme.shadow,
       ),
       dialogTheme: DialogTheme(
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
               // OrdersScreen.routeName: (ctx) => const SafeArea(
               //       child: OrdersScreen(),
               //     ),
+              ProductSearchScreen.routeName: (ctx) => ProductSearchScreen(),
               UserProductsScreen.routeName: (ctx) => const SafeArea(
                     child: UserProductsScreen(),
                   ),
