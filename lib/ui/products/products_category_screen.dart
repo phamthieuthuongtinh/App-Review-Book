@@ -1,7 +1,9 @@
+import 'package:ct484_project/ui/products/product_grid_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:ct484_project/ui/products/products_manager.dart';
-import 'package:ct484_project/models/product.dart'; // Import Product model
+import 'package:ct484_project/models/product.dart';
+import 'package:provider/provider.dart'; // Import Product model
 
 class ProductsCategoryScreen extends StatefulWidget {
   static const routeName = '/products-category';
@@ -24,7 +26,7 @@ class _ProductsCategoryScreenState extends State<ProductsCategoryScreen> {
   }
 
   Future<List<Product>> _fetchProductsByCategory(String category) async {
-    final productsManager = ProductsManager();
+    final productsManager = Provider.of<ProductsManager>(context, listen: false);
     final List<Product> products = await productsManager.fetchProductsByCategory(category); 
     return products;
   }
@@ -43,32 +45,43 @@ class _ProductsCategoryScreenState extends State<ProductsCategoryScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Product>>(
-  future: _futureProducts,
-  builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else if (snapshot.hasError) {
-      return Center(
-        child: Text('Error: ${snapshot.error}'),
-      );
-    } else {
-      final List<Product> products = snapshot.data ?? [];
-      return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final Product product = products[index];
-          return ListTile(
-            title: Text(product.title), // Thay thế bằng thuộc tính thích hợp của Product
-          );
-        },
-      );
-    }
-  },
-),
-
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 16.0), // Khoảng trắng giữa AppBar và sản phẩm
+            FutureBuilder<List<Product>>(
+              future: _futureProducts,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else {
+                  final List<Product> products = snapshot.data ?? [];
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 3 / 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final Product product = products[index];
+                      return ProductGridTile(product);
+                    },
+                  );
+                }
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

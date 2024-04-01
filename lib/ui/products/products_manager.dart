@@ -87,8 +87,8 @@ class ProductsManager with ChangeNotifier{
   return categories;
 }
 Future<List<Product>> fetchProductsByCategory(String category) async {
-  final List<Product> allProducts = await _productsService.fetchProducts();
-  final List<Product> categoryProducts = allProducts.where((product) => product.cate == category).toList();
+ List<Product> allProducts = await _productsService.fetchProducts();
+  List<Product> categoryProducts = allProducts.where((product) => product.cate == category).toList();
   return categoryProducts;
 }
 
