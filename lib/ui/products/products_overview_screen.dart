@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ct484_project/ui/products/products_manager.dart';
 import '../shared/app_drawer.dart';
 import 'products_grid.dart';
-import 'top_right_badge.dart';
 import 'package:provider/provider.dart';
 // import 'products_manager.dart';
 

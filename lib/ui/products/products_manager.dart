@@ -67,6 +67,9 @@ class ProductsManager with ChangeNotifier{
   List<Product> get favoriteItems{
     return _items.where((item)=> item.isFavorite).toList();
   }
+  bool isFavorite(String productId) {
+    return _items.any((product) => product.id == productId && product.isFavorite);
+  }
   Product? findById(String id) {
     try {
       return _items.firstWhere((item) => item.id == id);
