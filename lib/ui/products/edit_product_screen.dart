@@ -95,7 +95,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Product'),
+        title: const Text('Hiệu chỉnh'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.save),
@@ -127,7 +127,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   TextFormField _buildTitleField(){
     return TextFormField(
       initialValue: _editedProduct.title,
-      decoration: const InputDecoration(labelText: 'Title'),
+      decoration: const InputDecoration(labelText: 'Tên'),
       textInputAction: TextInputAction.next,
       autofocus: true,
       validator: (value){
@@ -141,35 +141,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
       },
     );
   }
-
-  // TextFormField _buildPriceField(){
-  //   return TextFormField(
-  //     initialValue: _editedProduct.price.toString(),
-  //     decoration: const InputDecoration(labelText: 'Price'),
-  //     textInputAction: TextInputAction.next,
-  //     keyboardType: TextInputType.number,
-  //     validator: (value){
-  //       if(value!.isEmpty){
-  //         return 'Please enter a price.';
-  //       }
-  //       if(double.tryParse(value)==null){
-  //         return 'Please enter a valid number.';
-  //       }
-  //       if(double.parse(value)<=0){
-  //         return 'Please enter a number greater than zero.';
-  //       }
-  //       return null;
-  //     },
-  //     onSaved: (value){
-  //       _editedProduct=_editedProduct.copyWith(price: double.parse(value!));
-  //     },
-  //   );
-  // }
-
   TextFormField _buildDescriptionField(){
     return TextFormField(
       initialValue: _editedProduct.description,
-      decoration: const InputDecoration(labelText: 'Description'),
+      decoration: const InputDecoration(labelText: 'Mô tả'),
       maxLines: 3,
       keyboardType: TextInputType.multiline,
       validator: (value){
@@ -215,7 +190,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
   TextFormField _buildImageURLField(){
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Image URL'),
+      decoration: const InputDecoration(labelText: 'URL hình ảnh'),
       keyboardType: TextInputType.url,
       textInputAction: TextInputAction.done,
       controller: _imageUrlController,
@@ -239,7 +214,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   TextFormField _buildCateField(){
     return TextFormField(
       initialValue: _editedProduct.cate,
-      decoration: const InputDecoration(labelText: 'Category'),
+      decoration: const InputDecoration(labelText: 'Thể loại'),
       textInputAction: TextInputAction.next,
       autofocus: true,
       validator: (value){
@@ -256,7 +231,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   TextFormField _buildAuthorField(){
     return TextFormField(
       initialValue: _editedProduct.author,
-      decoration: const InputDecoration(labelText: 'Tac gia'),
+      decoration: const InputDecoration(labelText: 'Tác giả'),
       textInputAction: TextInputAction.next,
       autofocus: true,
       validator: (value){

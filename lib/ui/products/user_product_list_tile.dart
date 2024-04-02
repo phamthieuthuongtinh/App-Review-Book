@@ -37,7 +37,7 @@ class UserProductListTile extends StatelessWidget {
                   ..showSnackBar(
                     const SnackBar(
                       content: Text(
-                        'Product deleted',
+                        'Xóa thành công',
                         textAlign: TextAlign.center,
                       ),
                     ),

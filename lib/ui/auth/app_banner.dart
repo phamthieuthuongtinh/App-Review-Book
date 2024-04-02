@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AppBanner extends StatelessWidget {
@@ -19,8 +18,8 @@ class AppBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(
           colors: [
-            Color(0xFF00BFA6), // Màu xanh lá cây
-            Color(0xFF64FFDA), // Màu xanh nước biển
+            Color(0xFF4CAF50), // Màu xanh lá cây
+            Color(0xFF8BC34A), // Màu xanh cây non
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -34,9 +33,9 @@ class AppBanner extends StatelessWidget {
         ],
       ),
       child: Transform.rotate(
-        angle: -8 * pi / 180,
+        angle: 0 * pi / 180,
         child: Text(
-          'Book review',
+          'Books Review',
           style: TextStyle(
             color: Colors.white,
             fontSize: 50,
