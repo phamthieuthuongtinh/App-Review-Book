@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/shared/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'products_manager.dart';
@@ -68,6 +69,7 @@ class _ProductSearchScreenState extends State<ProductSearchScreen> {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: _isDataLoaded
           ? SingleChildScrollView(
               child: Column(

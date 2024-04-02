@@ -1,4 +1,5 @@
 import 'package:ct484_project/ui/products/product_grid_tile.dart';
+import 'package:ct484_project/ui/shared/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:ct484_project/ui/products/products_search_screen.dart';
 import 'package:ct484_project/ui/products/products_manager.dart';
@@ -45,6 +46,7 @@ class _ProductsCategoryScreenState extends State<ProductsCategoryScreen> {
           ),
         ],
       ),
+       drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
